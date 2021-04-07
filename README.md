@@ -150,4 +150,50 @@ Para este caso es necesario destacar que no importando el tipo de dato es necesa
   const num pi=3.1416;
   const String s="Hola a todos";
 ```
+## Inputs
+Muchas veces aunque no es tan evidente existirán aplicaciones en las cuales solicitaremos a nuestro usuario la lectura de algún dato por el teclado, por ello y por sencilla utilidad haremos uso de dos bibliotecas de dart _dart\:io_ y _dart\:async_ para la lectura por medio del teclado y así nuestro programa pueda continuar y trabajar
 
+Un ejemplo de esto sera:
+```dart
+  #!/usr/bin/env  dart
+  import "dart:io";
+  import "dart:async";
+
+  /*
+   * Read a String? and return a String
+  **/
+  String readData(){
+    return stdin.readLineSync().toString();
+  }
+
+  /*
+   * Try to read a int if exists an Error return null
+  **/
+  int? readInt(){
+    return int.tryParse(readData());
+  }
+
+  /*
+   * Try to read a double if exists an Error return null
+  **/
+  double? readDouble(){
+    return double.tryParse(readData());
+  }
+
+  main(List<String> args){
+    print("Hello, whats your name?");
+    var name=readData();
+    print("How old are you?");
+    var age=readInt();
+    if(name.length==0){
+      print("Come on please, tell me your name next time, bye!");
+      return 1;
+    }
+    if(age==null){
+      print("Come on man");
+      return 1;
+    }
+    print("Hello ${name} you're ${age} years old");
+    return 0;
+  }
+```
