@@ -139,3 +139,15 @@ Para esto escribiremos lo siguiente en un nuevo proyecto de Dart o en un nuevo a
     return 0;
   }
 ```
+
+Como finalmente para el caso de hacer uso de objetos los cuales sean llamar al metodo _tryParse_ es necesario definir la variable como _var_ para que de este modo, el mismo lenguaje determine si es posible convertir la cadena de datos al tipo de datos en especifico.
+
+__Constantes__
+
+Para este caso es necesario destacar que no importando el tipo de dato es necesario solo escribir lo siguiente para definir una constante:
+```dart
+  const int age=21;
+  const num pi=3.1416;
+  const String s="Hola a todos";
+```
+
