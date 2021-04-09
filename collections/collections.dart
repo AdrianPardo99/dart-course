@@ -24,6 +24,10 @@ main(List<String> args){
   /*
    * If you try to add another typedata like number, double, boolean or String
    * The program cant execute.
+   *
+   *
+   * Set doesn't need more explication about what is a Set
+   *
   **/
   Set nu={1,2,3};
   nu.add("Hola");
