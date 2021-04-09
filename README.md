@@ -226,6 +226,10 @@ Las colecciones son distintos tipos de estructuras de datos, en las cuales podre
     /*
      * If you try to add another typedata like number, double, boolean or String
      * The program cant execute.
+     *
+     *
+     * Set doesn't need more explication about what is a Set
+     *
     **/
     Set nu={1,2,3};
     nu.add("Hola");
@@ -261,6 +265,162 @@ Las colecciones son distintos tipos de estructuras de datos, en las cuales podre
     m.putIfAbsent("birthday",()=>"May 10th");
     print("\nMap: ${m}\nKeys: ${m.keys}\nValues: ${m.values}");
 
+    return 0;
+  }
+```
+## Control de flujo
+Muchas veces conocidas como las sentencias lógicas de ejecución de código, sentencias repetitivas de ejecución de código, entre otras funciones que controlan la ejecución de un programa.
+
+Para el caso de usar terminal y ver que pasa con los asserts es necesario usar las siguientes opciones para ejecutar:
+```bash
+  dart --enable-asserts <filename.dart>
+  # En caso de no ejecutarlo así el programa por si mismo sigue ejecutandose
+```
+
+```dart
+  #!/usr/bin/env  dart
+  main(List<String> args){
+    int age=18;
+    /*
+     * Assert check if a condition is true, if not the program exit by default
+    **/
+    assert(age>=18);
+
+    print("Age: ${age}");
+    /*
+     * If-else statement check if a condition its true, but if not the program
+     *  continue with other section of the code without exit like assert
+    **/
+    if(age>=18 && age<=35){
+      print("Joven adulto");
+    }else if(age>35&&age<=60){
+      print("Adulto");
+    }
+    /*
+     *  Short if or ternary conditional
+    **/
+    int type=(age>=18 && age<=30)?(0):(age>30&&age<=40)?(1):(age<18)?(2):(3);
+    /*
+     * switch statement
+    **/
+    switch(type){
+      case 0:
+        print("Juventud");
+      break;
+      case 1:
+        print("Adulto");
+      break;
+      case 2:
+        print("Menor");
+      break;
+      default:
+        print("Ni idea");
+    }
+    return 0;
+  }
+```
+## Ciclos
+Los ciclos son sentencias de código que se repetirán un número exacto o finito de veces para realizar algunas operaciones en el código
+```dart
+  #!/usr/bin/env  dart
+  import "dart:io";
+  import "dart:async";
+
+  String readStr(){
+    return stdin.readLineSync().toString();
+  }
+
+  int? readInt(){
+    return int.tryParse(readStr());
+  }
+
+  main(List<String> args){
+    List fib=[BigInt.from(0),BigInt.from(1)];
+    var x;
+    /*
+     * Ciclo while que verifica primero si la condición es verdadera para
+     *  ejecutar en caso contrario sigue el código
+    **/
+    while(x==null){
+      stdout.write("Ingresa el número de elementos que deseas trabajar: ");
+      x=readInt();
+    }
+    int i;
+    /*
+     * Ciclo for inicia con un valor inicial, una condición logica a cumplir
+     *  y el incremento de como va ir trabajando
+    **/
+    for(i=0;i<x;i++){
+      fib.add(fib[0+i]+fib[1+i]);
+    }
+    print("Serie de fibonacci: ${fib}");
+    /*
+     * Nota para el caso de un ciclo do-while inicialmente se ejecuta la primer
+     *  iteración de instrucciones sin analizar previamente si es posible o no
+    **/
+
+    /*
+     * Ciclo for-each se usa para iterar sobre cada valor de una Lista
+     *   o de alguna colección, siempre y cuando en la documentación lo permita
+    **/
+    i=-2;
+    fib.forEach((var j){
+      print("Elemento[${i++}]=${j}");
+    });
+    return 0;
+  }
+```
+## Funciones
+Las funciones son bloques de código los cuales ahorran el escribir o crear pequeños módulos de código los cuales van a ser utilizados en el mismo archivo o más tarde en otro archivo.
+```dart
+  #!/usr/bin/env  dart
+
+  /*
+   * Función recursiva de un valor cualquiera así como
+   * Función con un parametro predefinido para hacer sobrecarga
+   * Esta misma función contiene que el tipo de dato a retornar es entero
+  **/
+  int factorialOf([int i=0]){
+    return (i==0||i==1)?(1):(i*factorialOf(i-1));
+  }
+
+  /*
+   * Función con parametros con nombre
+  **/
+  void isOnPath({String filename:"fun.dart"}){
+    print("The file is on the path: ${filename}");
+  }
+
+  main(List<String> args){
+    print(factorialOf(5));
+    print(factorialOf());
+    isOnPath();
+    isOnPath(filename:"README.md");
+    return 0;
+  }
+```
+## Error Handlers
+Muchas veces a la hora de escribir código o al menos a la hora de lo que mayormente conocen como desarrollo en producción generalmente ocurrirán errores, en los cuales necesariamente necesitaremos o rogaremos porque estos no paren o rompan el programa a la hora de ejecutar, por ello necesitaremos hacer uso de pequeños handlers que permitan el obtener el error y que estos intenten continuar con la ejecución de la aplicación.
+```dart
+  #!/usr/bin/env  dart
+  int square(var value) {
+    if (value == null) throw Exception("value is null");
+    return value * value;
+  }
+  main(List<String> args){
+    /*
+     * Intentamos realizar una parte del código
+     * si ocurre un error pasa al catch
+     * finalmente ejecuta..
+    **/
+    try{
+      print("${square(4)}");
+      print("${square(null)}");
+    }catch(e){
+      print("Error ${e.toString()}");
+    }finally{
+      print("Se hizo lo que se pudo...");
+    }
     return 0;
   }
 ```
