@@ -424,3 +424,102 @@ Muchas veces a la hora de escribir código o al menos a la hora de lo que mayorm
     return 0;
   }
 ```
+## Acerca de paquetes y bibliotecas
+Cuando creamos un proyecto completo vía CLI o IDE se generara un archivo de ejemplo que es el _calculate()_, pero de esta forma podemos darnos una idea al respecto de que existen módulos, paquetes o bibliotecas que por default no son incluidas en el archivo donde trabajamos para programar o desarrollar nuestra aplicación, tal es el caso de las bibliotecas _dart:io_ y _dart:async_ que nos funcionan para muchas tareas como la lectura de datos desde el teclado o desde un descriptor de archivo que se ven a nivel bajo y como _syscall_ de algunos sistemas operativos como Linux.
+
+El incluir estos paquetes se hace sencillamente con:
+```dart
+  import "paquete/modulo";
+```
+Por otro lado cuando se programa a nivel aplicaciones más grandes como por ejemplo Clientes/Servidores se debe buscar en la página antiguamente conocida como _pub.dartlang.org_ hoy día _pub.dev_ donde encontraras módulos, bibliotecas y paquetes que funcionan para desarrollar aplicaciones en el lenguaje Dart, por ello mostrando un ejemplo de como se mostrara el como instalar el paquete http:
+```bash
+  # Para instalar en la maquina con dart
+  dart pub add http
+  # Para instalar en la maquina con flutter
+  flutter pub pub add http
+```
+Para continuar en nuestro proyecto de Dart en el archivo _pubspec.yaml_ agregaremos las siguientes lineas en el apartado donde vienen las dependencias:
+```yaml
+  dependencies:
+    http: ^0.13.1
+```
+Finalmente para importar el paquete en nuestro programa realizaremos lo siguiente:
+```dart
+  import 'package:http/http.dart';
+```
+Y de esta forma podemos utilizar los métodos y funciones que están escritos en Dart y con los que podemos trabajar/desarrollar sin problema utilizando un cliente http.
+
+## Programación Orientada a Objetos
+Para el caso de programación orientada a objetos habrá un y mil tutoriales de como realizarlo desde la creación de un proyecto general en un IDE o desde el CLI, por tanto aquí te presentare una forma sencilla que se utilizara en el mismo folder de archivos.
+
+Por ello primero crearemos el archivo _myclass.dart_ y escribiremos el siguiente código:
+```dart
+  /*
+   * File: myclass.dart
+  **/
+  class MyClass{
+    void sayHello(String name)=>print("Hello ${name}");
+  }
+```
+Despues en esa misma carpeta crearemos un siguiente archivo, por ejemplo _init.dart_, donde escribiremos lo siguiente:
+```dart
+  #!/usr/bin/env  dart
+  import "myclass.dart";
+
+  main(List<String> args){
+    /*
+     * Se crea la instancia de la clase
+    **/
+    MyClass m=new MyClass();
+    m.sayHello("Adrian");
+    return 0;
+  }
+```
+Y de esta forma ejecutaremos el archivo _init.dart_ de modo que al final podremos ejecutar sin ningún problema el primer código que hemos escrito.
+
+__Constructor en las clases__
+
+Para este apartado se hara uso del archivo _init.dart_ y se creara otro archivo _class2.dart_ para realizar la prueba de este apartado:
+
+___class2.dart___
+```dart
+  /*
+   * File: class2.dart
+  **/
+  class Class2{
+    String name="";
+
+    Class2([String name=""]){
+      print("Constructor");
+      this.name=name;
+    }
+
+    void sayHello(){
+      if(name.isEmpty){
+        print("Hello");
+        return;
+      }
+      print("Hello ${name} nice to meet you uwu");
+      return;
+    }
+  }
+```
+___init.dart___
+```dart
+  #!/usr/bin/env  dart
+  import "myclass.dart";
+  import "class2.dart";
+
+  main(List<String> args){
+    /*
+     * Se crea la instancia de la clase
+    **/
+    MyClass m=new MyClass();
+    m.sayHello("Adrian");
+    Class2 c=new Class2();
+    c.sayHello();
+    c.name="Adrian";
+    c.sayHello();
+    return 0;
+  }
+```
