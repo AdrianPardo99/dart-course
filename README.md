@@ -523,3 +523,122 @@ ___init.dart___
     return 0;
   }
 ```
+
+__Alcance de las variables__
+Como ya vimos en las clases existe las variables pertenecientes a la misma plantilla, pero que pasaría si existiese una variable la cual tiene el mismo nombre que se recibe en el constructor, para ese caso mostraremos el siguiente ejemplo:
+
+___scope.dart___
+```dart
+  /*
+   * File: scope.dart
+  **/
+  class Scope{
+    String name="";
+    Scope(String name){
+      String name="Hola";
+      this.name=name;
+      print("Valor: ${name}");
+    }
+  }
+```
+___init.dart___
+```dart
+  #!/usr/bin/env  dart
+  import "myclass.dart";
+  import "class2.dart";
+  import "scope.dart";
+
+  main(List<String> args){
+    /*
+     * Se crea la instancia de la clase
+    **/
+    MyClass m=new MyClass();
+    m.sayHello("Adrian");
+    Class2 c=new Class2();
+    c.sayHello();
+    c.name="Adrian";
+    c.sayHello();
+
+    Scope s=new Scope("Adrian");
+    return 0;
+  }
+```
+
+En el cual veremos y obtendremos la salida:
+```bash
+  Hello Adrian
+  Constructor
+  Hello
+  Hello Adrian nice to meet you uwu
+  Valor: Hola
+```
+
+A lo cual podemos percatarnos que el alcance y la jerarquía es inicialmente las variables que pertenecen al método, constructor o función para trabajar.
+
+La jerarquía a seguir de Dart es la siguiente:
+* Variables propias del método o función
+* Variables que se reciben por parámetro
+* Variables propias de la clase
+
+__Encapsulamiento__
+
+Al igual que todos los lenguajes de programación orientados a objetos podemos el desarrollar de tal modo en que los miembros de nuestra clase solo sean accesibles a través de si mismo sin necesidad de que puedan ser "modificados" desde el exterior, por ello para denotar que es una variable privada nos apoyaremos del guion bajo, ejemplo:
+```dart
+  /*
+   * Variable privada llamada name
+  **/
+  String _name="";
+```
+Por otro lado un punto a destacar de igual forma es que se pueden crear funciones o métodos privados de la clase de modo que estos solo sean accesibles dentro de su propia clase, ejemplo:
+
+```dart
+  /*
+   * Función privada llamada saludar
+  **/
+  void _saludar(String msg)=>print(msg);
+```
+De este modo para que esta función sea accesible desde el exterior seria necesario complementar el código con una función que mande a llamar a la misma internamente en la clase, ejemplo:
+```dart
+  /*
+   * Función publica de acceso a la función privada
+  **/
+  void mandaMsg(String msg)=>this._saludar(msg);
+```
+De modo en que si deseas llamar la variable privada o en su defecto la función privada esta mandara un error al programa cerrándolo como medida de seguridad.
+
+__Getter y Setter__
+De igual forma y repitiendo la historia de la POO, en Dart tambien existen los metodos de acceso y de modificación de una o más variables privadas, todo es tan sencillo como:
+```dart
+  String _mensaje="";
+
+  /*
+   * Getter
+  **/
+  String get mensaje=>_mensaje;
+  /*
+   * Setter
+  **/
+  void set mensaje(String mensaje)=>this._mensaje=mensaje;
+```
+
+__Miembros o valores estáticos__
+Para esto todo es tan sencillo como el hacer uso de la palabra reservada _static_ para finalmente declarar una variable estática la cual trabajara de alguna forma interesante en la ejecución del código, algún ejemplo clásico de esto es cuando se instancia una cantidad de veces un objeto o clase, de tal modo que internamente existe un contador que lleva el conteo y comparte memoria entre todos los demas objetos:
+```dart
+  class Persona{
+    static int _contador=0;
+    Persona(){
+      this._contador++;
+      print("Persona ${this._contador}");
+    }
+  }
+```
+De igual forma se pueden crear métodos o funciones estáticas que son aquellas en las que claramente no requerimos de una instancia del objeto, simplemente este puede trabajar, con solo nombrar el método o función del Objeto.
+```dart
+  class Buffer{
+    static String readStr()=>stdin.readLineSync().toString();
+  }
+  /*
+   * El cual podemos llamar realizando el import del archivo/clase y finalmente
+  **/
+  String msg=Buffer.readStr();
+```
