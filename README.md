@@ -642,3 +642,33 @@ De igual forma se pueden crear métodos o funciones estáticas que son aquellas 
   **/
   String msg=Buffer.readStr();
 ```
+
+__Herencia__
+La herencia funciona muy bien a la hora de reutilizar todas las funciones de un código en especifico y al mismo se le puede comenzar a agregar propiedades especificas las cuales pueden crear nuevas clases u objetos.
+
+Ejemplo podría ser con la clasificación de un auto formando la siguiente clase:
+```dart
+  /*
+   * File: auto.dart
+  **/
+  class Auto{
+    bool isElectrico,
+         isBarato;
+    Auto([bool isElectrico=false,bool isBarato=false]){
+      this.isElectrico=isElectrico;
+      this.isBarato=isBarato;
+    }
+  }
+  /*
+   * File: tesla.dart
+  **/
+  import "auto.dart"
+  class Tesla extends Auto{
+    String modelo="";
+    Tesla([bool isElectrico=true,isBarato=false,modelo="S"]){
+      super(isElectrico,isBarato);
+      this.modelo=modelo;
+    }
+  }
+```
+Por lo cual este pequeño segmento de código es un ejemplo a la hora de programar.
