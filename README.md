@@ -672,3 +672,50 @@ Ejemplo podría ser con la clasificación de un auto formando la siguiente clase
   }
 ```
 Por lo cual este pequeño segmento de código es un ejemplo a la hora de programar.
+
+A diferencia de Java, Dart permite realizar la herencia múltiple, la cual permite realizar múltiples llamadas a distintas clases, heredando los métodos, funciones y variables de otras clases en un solo código
+
+Un ejemplo de ello seria:
+```dart
+  class Nombre_de_la_clase extends Clase_que_hereda with Otras_clases_que_hereda, Otra_clase{
+    /* Código aquí */
+  }
+```
+__Interfaces__
+
+Las interfaces funcionan como un archivo que interactua con dos clases, es decir que genera una interconexión con dos archivos diferentes. Y que a su vez los métodos o funciones puedan ser sobrescritos o sobrecargados de tal manera que la instancia a la cual se hace referencia en un archivo sea el que ejecuta Dart.
+
+Entonces por definición las interfaces son una serie de plantillas que sirven para sobrescribir más tarde o presentarles otra funcionalidad más adelante tal y como se hace en algunos otros lenguajes.
+
+Ejemplo:
+```dart
+  /*
+   * File: employee.dart
+  **/
+  class Employee{
+    String name="Bruce Wayne";
+    void test()=> print("Hello\nI'm ${name}");
+  }
+
+  /*
+   * File: manager.dart
+  **/
+  import "employee.dart";
+  class Manager extends Employee{
+    void test(){
+      print("Hi I'm the Manager\n${super.toString()}");
+    }
+  }
+
+  #!/usr/bin/env  dart
+  /*
+   * File: main.dart
+  **/
+  import "manager.dart";
+
+  main(List<String> argv){
+    Manager m=new Manager();
+    m.test();
+
+  }
+```
